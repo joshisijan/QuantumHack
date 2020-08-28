@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Train Model
+{% endblock title %}
+
+{% block body %}
+
+<div class="container py-4">
+    <form  method="POST" action="{% url 'train-model' %}">
+        {% csrf_token %}
+        <input class="btn btn-primary" type="submit" value="Train Model" />
+    </form>
+</div>
+
+{% endblock body %}
