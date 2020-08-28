@@ -40,54 +40,32 @@ Assignments
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>Computer Archetecture</td>
-                    <td>2020-01-10</td>
-                    <td>Today</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
-                            <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
-                                visibility
-                            </span> 
-                            <span class="pl-4">
-                                View
-                            </span>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-warning" style="position: relative; width: 100px;"> 
-                            <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
-                                publish
-                            </span> 
-                            <span class="pl-4">
-                                Submit
-                            </span>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <td>Computer Graphics</td>
-                    <td>2020-01-12</td>
-                    <td>2 days</td>
-                    <td>
-                        <a href="#" class="btn btn-sm btn-secondary" style="position: relative; width: 100px"> 
-                            <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
-                                visibility
-                            </span> 
-                            <span class="pl-4">
-                                View
-                            </span>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-warning" style="position: relative; width: 100px"> 
-                            <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
-                                publish
-                            </span> 
-                            <span class="pl-4">
-                                Submit
-                            </span>
-                        </a>
-                    </td>
-                </tr>
+                {% for assignment in assignments %}
+                    <tr>
+                        <th>{{ num|add:"1" }}</th>
+                        <td>{{ assignment.subject }}</td>
+                        <td>{{ assignment.submission_date }}</td>
+                        <td>Today</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
+                                <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
+                                    visibility
+                                </span> 
+                                <span class="pl-4">
+                                    View
+                                </span>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-warning" style="position: relative; width: 100px;"> 
+                                <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
+                                    publish
+                                </span> 
+                                <span class="pl-4">
+                                    Submit
+                                </span>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
