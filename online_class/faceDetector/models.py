@@ -20,6 +20,14 @@ class UserFacesTraining(models.Model):
         return str(self.user)
 
 
+class UserFaceRecognize(models.Model):
+    def user_directory_path(instance, filename):
+        return 'faceDetector/recognize/{0}.png'.format(instance.user.id)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Image1')
+
+
 class Attendence_class(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class_details = models.ForeignKey('class.Class', on_delete=models.CASCADE)

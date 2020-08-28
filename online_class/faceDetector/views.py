@@ -5,13 +5,18 @@ from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 from imutils import paths
+import numpy as np
 import face_recognition
 import pickle
 import cv2
 import os
 
 from .forms import *
-from .models import *
+from .models import (
+    UserFacesTraining,
+    UserFaceRecognize,
+    Attendence_class
+)
 
 
 def add_images(request):
@@ -29,11 +34,13 @@ def add_images(request):
 def train_model(request):
     # if request.user.is_admin:
     if request.method == 'POST':
-        imagePaths = list(paths.list_images(settings.MEDIA_ROOT + "/faceDetector/dataset"))
+        file_location = str(settings.MEDIA_ROOT) + "/faceDetector/dataset"
+        imagePaths = list(paths.list_images(file_location))
         knownEncodings = []
         knownNames = []
 
         for (i, imagePath) in enumerate(imagePaths):
+            print('here...')
             name = imagePath.split(os.path.sep)[-2]
 
             image = cv2.imread(imagePath)
@@ -51,7 +58,8 @@ def train_model(request):
             "encodings": knownEncodings,
             "names": knownNames
         }
-        f = open(settings.MEDIA_ROOT + "/faceDetector/encodings.pickle", "wb")
+        dump_location = str(settings.MEDIA_ROOT) + "/faceDetector/encodings.pickle"
+        f = open(dump_location, "wb")
         f.write(pickle.dumps(data))
         f.close()
 
@@ -65,7 +73,6 @@ def train_model(request):
     #     return redirect('main_page')
 
 
-
 # def attendence_class(request, classID):
 def attendence_class(request):
     if request.method == 'POST':
@@ -77,11 +84,20 @@ def attendence_class(request):
         print('tesst...................')
         print('tesst...................')
         if(request.FILES['image']):
-            selected_image = request.Files['image']
+            selected_image = request.FILES['image']
 
-            data = pickle.loads(open(settings.MEDIA_ROOT + "/faceDetector/encodings.pickle", "rb").read())
-            image = cv2.imread(selected_image)
-            rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            encoding_location = str(settings.MEDIA_ROOT) + "/faceDetector/encodings.pickle"
+            data = pickle.loads(open(encoding_location, "rb").read())
+            # image = cv2.imread(selected_image)
+            
+            recognize_obj = UserFaceRecognize.objects.create(
+                user = request.user,
+                image = selected_image
+            )
+            recognize_obj.save()
+
+            image_location = str(settings.MEDIA_ROOT) + "/faceDetector/recognize/" + request.user + '.png'
+            rgb = cv2.cvtColor(image_location, cv2.COLOR_BGR2RGB)
 
             boxes = face_recognition.face_locations(rgb, model="cnn")
             encodings = face_recognition.face_encodings(rgb, boxes)

@@ -6,6 +6,17 @@ Attendence | class
 
 {% block body %}
 
+     <form method='POST' action="{% url 'attendence_class' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" />
+        <button type='submit' class="btn btn-success">Take Attendence</button>
+     </form>
+
+{% endblock body %}
+
+
+{% comment %} 
+
     <form id="userinfoform" action="{% url 'attendence_class' %}">
         {% csrf_token %}
         First name: <input type="text" id="firstname">
@@ -35,9 +46,8 @@ Attendence | class
 
         });
     });
-    </script> 
-
-{% endblock body %}
+    </script>
+{% endcomment %}
 
 
 {% comment %} 
