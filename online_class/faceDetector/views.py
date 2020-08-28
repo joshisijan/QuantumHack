@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse_lazy
 
 from imutils import paths
 import face_recognition
@@ -17,11 +19,11 @@ def add_images(request):
         form = AddFacesDataset(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('success')
+            return redirect('../../face-recognition/add-images')
     else:
         form = AddFacesDataset()
 
-    return render (request, 'faceDetector/add_images.html', {'form' : form})
+    return render(request, 'add_images.html', {'form' : form})
 
 
 def train_model(request):
@@ -112,7 +114,7 @@ def attendence_class(request):
             context = {
                     'message': "Sorry! We were not able to do recognization. Please try again."
                 }
-            return render(request, 'home.html', context)
+            return render(request, 'attendece_class.html', context)
     else:
         print('no........')
         print('no........')
@@ -170,4 +172,4 @@ def attendence_exam(request, examId):
 
 
 def redirection(request):
-    pass
+    return render(request, 'redirected.html')
