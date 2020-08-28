@@ -9,12 +9,12 @@ class User(AbstractUser):
     email = models.EmailField(max_length=100)
 
 
-class Subject(models.Model):
-    name = models.CharField(max_length=30)
-    level = models.CharField(max_length=30, null=False)
+# class Subject(models.Model):
+#     name = models.CharField(max_length=30)
+#     level = models.CharField(max_length=30, null=False)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
 
 class Assignment(models.Model):
@@ -24,7 +24,7 @@ class Assignment(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=225)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    subject = models.ForeignKey('class.Class', on_delete=models.CASCADE)
     submission_date = models.DateField("Submission Date")
     date_added = models.DateField(auto_now_add=True)
     question = models.FileField(upload_to=user_directory_path)

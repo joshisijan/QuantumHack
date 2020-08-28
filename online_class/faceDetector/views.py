@@ -114,7 +114,7 @@ def attendence_class(request):
             context = {
                     'message': "Sorry! We were not able to do recognization. Please try again."
                 }
-            return render(request, 'attendece_class.html', context)
+            return render(request, 'attendence_class.html', context)
     else:
         print('no........')
         print('no........')
@@ -156,7 +156,7 @@ def attendence_exam(request, examId):
                 names.append(name)
 
             if(request.user.id == name):
-                return redirect('assignment_page')
+                return redirect('redirection')
             else:
                 context = {
                     'message': "Face does't match"
