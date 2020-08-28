@@ -1,5 +1,5 @@
 from django.urls import path
-from views import (
+from .views import (
     attendence_class,
     attendence_exam,
     train_model,

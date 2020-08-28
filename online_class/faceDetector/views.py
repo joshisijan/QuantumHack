@@ -8,9 +8,20 @@ import pickle
 import cv2
 import os
 
+from .forms import *
+from .models import *
+
 
 def add_images(request):
-    pass
+    if request.method == "POST":
+        form = AddFacesDataset(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+    else:
+        form = AddFacesDataset()
+
+    return render (request, 'faceDetector/add_images.html', {'form' : form})
 
 
 def train_model(request):
@@ -156,6 +167,7 @@ def attendence_exam(request, examId):
             return render(request, 'attendence-class.html', context)
     else:
         return render(request, 'attendence-class.html')
+
 
 def redirection(request):
     pass
