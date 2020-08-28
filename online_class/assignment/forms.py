@@ -1,8 +1,8 @@
 from django import forms
-from .models import *
+from . import models
 
 
 class AssignmentAddForm(forms.ModelForm):
     class Meta:
-        model = Assignment
+        model = models.Assignment
         fields = ['title', 'subject', 'submission_date', 'question']
