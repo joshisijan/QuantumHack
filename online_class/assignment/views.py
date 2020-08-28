@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .forms import *
 from .models import *
 
@@ -21,7 +21,7 @@ def assignment_add(request):
             assignment = form.save(commit=False)
             assignment.owner = request.user
             assignment.save()
-            return redirect('assignment_page')
+            return redirect('teachers:assignment_page')
     else:
         form = AssignmentAddForm()
     
@@ -29,6 +29,25 @@ def assignment_add(request):
 
 
 def assignment_update(request, pk):
-    pass
+    assignment = Assignment.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = AssignmentAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            assignment = form.save(commit=False)
+            assignment.owner = request.user
+            assignment.save()
+            return redirect('assignment_page')
+    else:
+        form = AssignmentAddForm(instance=assignment)
+    
+    return render(request, 'teachers/assignment_update.html', {'form':form, 'assignment':assignment})
+
+
+
+def assignment_delete(request,pk):
+    assignment = Assignment.objects.get(pk=pk)
+    assignment.delete()
+
+    return redirect('teachers:assignment_page')
 
 
