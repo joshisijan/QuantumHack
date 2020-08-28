@@ -18,8 +18,6 @@ urlpatterns = [
     path('teachers/update/<int:pk>/', exam_update, name='exam_update'),
     path('teachers/<int:pk>/delete/', exam_delete, name='exam_delete'),
 
-    path('students/', include(([
-        path('', student_exam_home, name='exam_page_details_student'),
-        path('/submit/<int:pk>', exam_submit, name='exam_submit')
-    ],'exam'), namespace='students'))
+    path('students/', student_exam_home, name='exam_page_details_student'),
+    path('students/submit/<int:pk>/', exam_submit, name='exam_submit')
 ]

@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Exam - Submit
+{% endblock title %}
+
+{% block body %}
+    <div class="container py-4">
+        <form method="post" enctype="multipart/form-data" >
+            {% csrf_token %}
+            <label for="{{ exam.question1 }}">Question 1:</label>
+            {{ exam.question1 }}
+            <br>
+            {{ form.question1_answer }}
+            <br>
+
+            <label for="{{ exam.question1 }}">Question 2:</label>
+            {{ exam.question2 }}
+            <br>
+            {{ form.question2_answer }}
+            <br>
+
+            <label for="{{ exam.question1 }}">Question 3:</label>
+            {{ exam.question3 }}
+            <br>
+            {{ form.question3_answer }}
+            <br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock body %}
+

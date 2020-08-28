@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect, HttpResponse
 from .forms import *
 from .models import *
 
+from assignment.models import (
+    User,
+    Student,
+)
+
 
 def exam_view(request):
     if request.user.is_authenticated:
@@ -75,4 +80,20 @@ def student_exam_home(request):
 
 
 def exam_submit(request, pk):
-    pass
+    if request.method == 'POST':
+        form = ExamAnswerAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            exam = form.save(commit=False)
+            exam.student = Student.objects.get(pk=request.user.id)
+            exam.examQuestions = ExamQuestions.objects.get(pk=pk)
+            exam.save()
+            return redirect('exam_page_details_student')
+    else:
+        form = ExamAnswerAddForm()
+        exam = ExamQuestions.objects.get(pk=pk)
+        context = {
+            'exam': exam,
+            'form': form,
+        }
+    
+    return render(request, 'students/exam_submit.html', context)
