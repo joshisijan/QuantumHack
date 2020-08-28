@@ -21,11 +21,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', include('main.urls')),
-    path('', include('class.urls')),
-    path('', include('exam.urls')),
-    path('assignments/', include('assignment.urls')),
-    path('', include('user_profile.urls')),
-    path('', include('faceDetector.urls')),
+    path('class/', include('class.urls')),
+    path('exam/', include('exam.urls')),
+    path('assignment/', include('assignment.urls')),
+    path('profile/', include('user_profile.urls')),
+    path('face-recognition/', include('faceDetector.urls')),
     path('admin/', admin.site.urls),
 ]
 
