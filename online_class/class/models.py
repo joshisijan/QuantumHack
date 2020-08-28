@@ -1,15 +1,18 @@
 from django.db import models
 
+from assignment.models import (
+    User,
+)
+
 
 class Teacher(models.Model):
     teacher_name = models.CharField(verbose_name="Name of Teacher", max_length = 100)
 
 class Class(models.Model):
     class_name = models.CharField(verbose_name="Name of Subject", max_length = 100)
-    teacher_name = models.ForeignKey("class.Teacher", verbose_name= "Name of Teacher", on_delete=models.CASCADE)
+    teacher_name = models.ForeignKey(User, verbose_name= "Name of Teacher", on_delete=models.CASCADE)
     sem = models.PositiveIntegerField(verbose_name="Semister")
     course_time = models.PositiveIntegerField(verbose_name="Total study Hour")
-    class_link = models.CharField(verbose_name="Link for online class", max_length = 100)
 
     def __str__(self):
         return str(self.class_name)
@@ -21,24 +24,33 @@ class Routine(models.Model):
     class_name = models.ForeignKey("class.Class", on_delete=models.CASCADE, verbose_name="Subject Name")
     start_time = models.TimeField(verbose_name="Class start time")
     end_time = models.TimeField(verbose_name="Class end time")
+    class_link = models.CharField(verbose_name="Link for online class", max_length = 100)
 
     def __str__(self):
 
         day_name = ""
-        if day == 1:
+        if self.day == 1:
             day_name = "Sunday"
-        elif day == 2:
+        elif self.day == 2:
             day_name = "Monday"
-        elif day == 3:
+        elif self.day == 3:
             day_name = "Tuesday"
-        elif day == 4:
+        elif self.day == 4:
             day_name = "Wednesday"
-        elif day == 5:
+        elif self.day == 5:
             day_name = "Thursday"
-        elif day == 6:
+        elif self.day == 6:
             day_name = "Friday"
         else:
             day_name == "Saturday"
 
-        return day_name + str(class_name) 
+        return day_name + " - " + str(self.class_name) 
     
+
+# class Resources(models.Model):
+#     def user_directory_path(instance, filename):
+#         return 'class/{0}/{1}'.format(routine.day, routine.class_name)
+#     routine = models.ForeignKey(Routine, on_delete=models.CASCADE, verbose_name="Routine - Subject")
+#     file1 = models.FileField(upload_to=user_directory_path)
+#     file2 = models.FileField(upload_to=user_directory_path)
+#     file3 = models.FileField(upload_to=user_directory_path)
