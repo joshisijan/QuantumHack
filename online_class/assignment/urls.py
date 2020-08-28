@@ -1,6 +1,15 @@
-from django.urls import path
-from . import views
+from django.urls import path, include
+from .views import *
 
 urlpatterns = [
-    path('assignment/', views.assignment_view, name="assignment_page"),
+    path('',assignment_home, name='assignemnt_home'),
+    path('add/',assignment_add, name='assignemnt_add'),
+    path('<')
+]
+
+
+urlpatterns = [
+    path('teachers/', include(([
+
+    ],'classromm'), namespace='teachers'))
 ]
