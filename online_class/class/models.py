@@ -1,9 +1,12 @@
 from django.db import models
 
 
+class Teacher(models.Model):
+    teacher_name = models.CharField(verbose_name="Name of Teacher", max_length = 100)
+
 class Class(models.Model):
     class_name = models.CharField(verbose_name="Name of Subject", max_length = 100)
-    teacher_name = models.CharField(verbose_name="Name of Teacher", max_length = 100)
+    teacher_name = models.ForeignKey("class.Teacher", verbose_name= "Name of Teacher", on_delete=models.CASCADE)
     sem = models.PositiveIntegerField(verbose_name="Semister")
     course_time = models.PositiveIntegerField(verbose_name="Total study Hour")
 

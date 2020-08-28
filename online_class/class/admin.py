@@ -6,3 +6,4 @@ from . import models
 
 admin.site.register(models.Class)
 admin.site.register(models.Routine)
+admin.site.regisster(models.Teacher)
