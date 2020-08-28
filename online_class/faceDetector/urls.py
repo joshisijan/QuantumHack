@@ -9,8 +9,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path('attendece/class/', attendence_class, name="attendence_class"),
-    path('attedence/exam<int:id>/', attendence_exam, name="attendence_exam"),
+    path('attendence/class/', attendence_class, name="attendence_class"),
+    path('attedennce/exam<int:id>/', attendence_exam, name="attendence_exam"),
     path('train/', train_model, name="train-model"),
     path('add-images/', add_images, name="add_images"),
     # path('add-images/', AddImagesView.as_view(), name="add-images"),
