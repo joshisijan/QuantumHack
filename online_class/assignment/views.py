@@ -3,6 +3,15 @@ from .forms import *
 from .models import *
 
 
+def home(request):
+    if request.user.is_authenticated:
+        if request.user.is_teacher:
+            return redirect('teachers:assignment_page')
+        else:
+            return redirect('students:assignment_page')
+    return redirect('login')
+
+
 def assignment_home(request):
     assignments = Assignment.objects.all()
     num = int(0)
@@ -49,5 +58,13 @@ def assignment_delete(request,pk):
     assignment.delete()
 
     return redirect('teachers:assignment_page')
+
+
+
+
+
+
+def student_assignment_home(request):
+    return HttpResponse("Student")
 
 

@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     'exam',
     'assignment',
     'user_profile',
-    'faceDetector'
+    'faceDetector',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+LOGIN_URL = 'login'
+
+LOGOUT_URL = 'logout'
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = 'home'
