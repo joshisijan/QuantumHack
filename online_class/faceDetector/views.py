@@ -88,16 +88,24 @@ def attendence_class(request):
 
             encoding_location = str(settings.MEDIA_ROOT) + "/faceDetector/encodings.pickle"
             data = pickle.loads(open(encoding_location, "rb").read())
-            # image = cv2.imread(selected_image)
             
-            recognize_obj = UserFaceRecognize.objects.create(
+            UserFaceRecognize.objects.create(
                 user = request.user,
                 image = selected_image
-            )
-            recognize_obj.save()
+            ).save()
 
-            image_location = str(settings.MEDIA_ROOT) + "/faceDetector/recognize/" + request.user + '.png'
-            rgb = cv2.cvtColor(image_location, cv2.COLOR_BGR2RGB)
+            image_location = str(settings.MEDIA_ROOT) + "/faceDetector/recognize/" + str(request.user.id) + '.png'
+            print(image_location)
+            print(image_location)
+            print(image_location)
+            print(image_location)
+            print(image_location)
+            image = cv2.imread(image_location)
+            rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+            # image = np.fromstring(selected_image, np.uint8)
+            # img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            # rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             boxes = face_recognition.face_locations(rgb, model="cnn")
             encodings = face_recognition.face_encodings(rgb, boxes)
@@ -118,6 +126,13 @@ def attendence_class(request):
                     name = max(counts, key=counts.get)
 
                 names.append(name)
+
+            print(name)
+            print(name)
+            print(name)
+            print(name)
+            print(name)
+            print(name)
 
             if(request.user.id == name):
                 return redirect('redirection')
