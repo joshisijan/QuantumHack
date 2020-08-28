@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Class(models.Model):
-    class_name = models.TextField(verbose_name="Name of Subject", max_length = 100)
-    teacher_name = models.TextField(verbose_name="Name of Teacher", max_length = 100)
+    class_name = models.CharField(verbose_name="Name of Subject", max_length = 100)
+    teacher_name = models.CharField(verbose_name="Name of Teacher", max_length = 100)
     sem = models.PositiveIntegerField(verbose_name="Semister")
     course_time = models.PositiveIntegerField(verbose_name="Total study Hour")
 
