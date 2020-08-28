@@ -28,7 +28,7 @@ def assignment_add(request):
     return render(request, 'teachers/assignment_add.html', {'form':form})
 
 
-def assignment_update(request):
+def assignment_update(request, pk):
     pass
 
 
