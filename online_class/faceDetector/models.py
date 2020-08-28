@@ -18,3 +18,13 @@ class UserFacesTraining(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+
+class Attendence_class(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    class_details = models.ForeignKey('class.Class', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)
+    is_present = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.class_ + "-" + self.user)
