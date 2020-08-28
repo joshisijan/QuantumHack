@@ -8,8 +8,8 @@ from .models import (
 
 class ExamQuestionAddForm(forms.ModelForm):
     class Meta:
-        model = ExamAnswers
-        fields = ['title', 'subject', 'exam_date', 'question1', 'question1_total_marks', 'question2', 'question2_total_marks', 'question3', 'question3_total_marks', 'full_marks']
+        model = ExamQuestions
+        fields = ['title', 'exam_date', 'question1', 'question1_total_marks', 'question2', 'question2_total_marks', 'question3', 'question3_total_marks', 'full_marks']
 
 
 class ExamAnswerAddForm(forms.ModelForm):
