@@ -13,13 +13,13 @@ class ExamQuestions(models.Model):
     exam_date = models.DateField("Submission Date")
 
     question1 = models.TextField('Question 1', default="Add Question", null=True)
-    question1_total_marks = models.PositiveIntegerField(null=True)
+    question1_total_marks = models.PositiveIntegerField(null=False, default=1)
 
     question2 = models.TextField('Question 2', default="Add Question", null=True)
-    question2_total_marks = models.PositiveIntegerField(null=True)
+    question2_total_marks = models.PositiveIntegerField(null=False, default=1)
 
     question3 = models.TextField('Question 3', default="Add Question", null=True)
-    question3_total_marks = models.PositiveIntegerField(null=True)
+    question3_total_marks = models.PositiveIntegerField(null=False, default=1)
 
     full_marks = models.PositiveIntegerField()
 
@@ -31,17 +31,17 @@ class ExamAnswers(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='exam_answer')
     examQuestions = models.ForeignKey(ExamQuestions, on_delete=models.CASCADE)
 
-    question1_answer = models.TextField('Question 1 Answer', default="Add Question", null=True)
+    question1_answer = models.TextField('Question 1 Answer', default="Your Answer", null=True)
     question1_marks = models.PositiveIntegerField(null=True)
 
-    question2_answer = models.TextField('Question 2 Answer', default="Add Question", null=True)
+    question2_answer = models.TextField('Question 2 Answer', default="Your Answer", null=True)
     question2_marks = models.PositiveIntegerField(null=True)
 
-    question3_answer = models.TextField('Question 3 Answer', default="Add Question", null=True)
+    question3_answer = models.TextField('Question 3 Answer', default="Your Answer", null=True)
     question3_marks = models.PositiveIntegerField(null=True)
 
     total_marks_obtained = models.PositiveIntegerField(null=True)
 
     def __str__(self):
-        return(self.ExamQuestions.title + '-' + self.student.user)
+        return(self.examQuestions.title + '-' + self.student.user.username)
 

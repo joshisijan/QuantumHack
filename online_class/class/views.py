@@ -5,4 +5,4 @@ def class_view(request):
 
     }
 
-    return render(request, 'class.html', context)
+    return render(request, 'class_home.html', context)

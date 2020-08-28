@@ -9,6 +9,7 @@ class Class(models.Model):
     teacher_name = models.ForeignKey("class.Teacher", verbose_name= "Name of Teacher", on_delete=models.CASCADE)
     sem = models.PositiveIntegerField(verbose_name="Semister")
     course_time = models.PositiveIntegerField(verbose_name="Total study Hour")
+    class_link = models.CharField(verbose_name="Link for online class", max_length = 100)
 
     def __str__(self):
         return str(self.class_name)

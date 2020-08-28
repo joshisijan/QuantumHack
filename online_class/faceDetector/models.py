@@ -2,7 +2,13 @@ from django.db import models
 from django.shortcuts import reverse
 from django.conf import settings
 
-from assignment.models import User
+from assignment.models import (
+    User,
+    Student
+)
+from exam.models import (
+    ExamQuestions,
+)
 
 
 class UserFacesTraining(models.Model):
@@ -35,4 +41,13 @@ class Attendence_class(models.Model):
     is_present = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.class_ + "-" + self.user)
+        return str(self.class_ + "-" + self.user.username)
+
+
+class Attendence_exam(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    examQuestions = models.ForeignKey(ExamQuestions, on_delete=models.CASCADE)
+    is_present = models.BooleanField(default=False)
+
+    def __str__(self):
+        return(self.examQuestions.title + '-' + self.student.user.username)

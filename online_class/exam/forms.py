@@ -16,3 +16,8 @@ class ExamAnswerAddForm(forms.ModelForm):
     class Meta:
         model = ExamAnswers
         fields = ['question1_answer', 'question2_answer', 'question3_answer']
+
+class ExamAnswerCheckForm(forms.ModelForm):
+    class Meta:
+        model = ExamAnswers
+        fields = ['question1_marks', 'question2_marks', 'question3_marks']
