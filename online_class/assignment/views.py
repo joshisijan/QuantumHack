@@ -13,7 +13,7 @@ def home(request):
 
 
 def assignment_home(request):
-    assignments = Assignment.objects.all()
+    assignments = Assignment.objects.filter(owner_id = request.user.id)
     num = int(0)
     context = {
         'assignments' : assignments,
@@ -52,13 +52,22 @@ def assignment_update(request, pk):
     return render(request, 'teachers/assignment_update.html', {'form':form, 'assignment':assignment})
 
 
-
 def assignment_delete(request,pk):
     assignment = Assignment.objects.get(pk=pk)
     assignment.delete()
 
     return redirect('teachers:assignment_page')
 
+
+
+def submitted_assignment(request,pk):
+    answers = StudentAnswer.objects.filter(assignment__id = pk)
+    print(pk)
+    context ={
+        'answers': answers,
+    }
+    
+    return render(request, 'teachers/submitted_assignment.html', context)
 
 
 

@@ -42,7 +42,7 @@ Assignments
             <tbody>
                 {% for assignment in assignments %}
                     <tr>
-                        <th>{{ num|add:"1" }}</th>
+                        <th>{{ forloop.counter }}</th>
                         <td>{{ assignment.subject }}</td>
                         <td>{{ assignment.submission_date }}</td>
                         <td>Today</td>
