@@ -75,14 +75,11 @@ def train_model(request):
 
 # def attendence_class(request, classID):
 def attendence_class(request, pk):
+
+    
+
     if request.method == 'POST':
-        print('tesst...................')
-        print('tesst...................')
-        print('tesst...................')
-        print('tesst...................')
-        print('tesst...................')
-        print('tesst...................')
-        print('tesst...................')
+        
         if(request.FILES['image']):
             selected_image = request.FILES['image']
 
