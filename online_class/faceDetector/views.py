@@ -74,7 +74,7 @@ def train_model(request):
 
 
 # def attendence_class(request, classID):
-def attendence_class(request):
+def attendence_class(request, pk):
     if request.method == 'POST':
         print('tesst...................')
         print('tesst...................')
@@ -135,6 +135,10 @@ def attendence_class(request):
             print(name)
 
             if(request.user.id == name):
+                student = Student.objects.get(pk=request.user.id)
+                attendence = Attendence_class.objects.filter(student=student)
+                if attendence:
+
                 return redirect('redirection')
             else:
                 context = {
