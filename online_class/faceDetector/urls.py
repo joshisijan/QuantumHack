@@ -9,7 +9,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('attendence/class/<int:pk>/', attendence_class, name="attendence_class"),
+    path('attendence/class/', attendence_class, name="attendence_class"),
     path('attedennce/exam/<int:pk>/', attendence_exam, name="attendence_exam"),
     path('train/', train_model, name="train-model"),
     path('add-images/', add_images, name="add_images"),

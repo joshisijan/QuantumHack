@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponse
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.views.generic import ListView, CreateView, UpdateView
@@ -74,7 +74,7 @@ def train_model(request):
 
 
 # def attendence_class(request, classID):
-def attendence_class(request, pk):
+def attendence_class(request):
 
     
 
@@ -82,6 +82,8 @@ def attendence_class(request, pk):
         
         if(request.FILES['image']):
             selected_image = request.FILES['image']
+
+            return HttpResponse('Redirected to the page after successful face recognition and attendence')
 
             encoding_location = str(settings.MEDIA_ROOT) + "/faceDetector/encodings.pickle"
             data = pickle.loads(open(encoding_location, "rb").read())
@@ -133,14 +135,13 @@ def attendence_class(request, pk):
 
             if(request.user.id == name):
                 attendence = Attendence_exam.objects.filter(user=request.user, class_details=pk)
-                if attendence:
-                    return redirect(attendence.class_details.class_link)
-                else:
+                if not attendence:
                     Attendence_exam.objects.create(
                         user = request.user,
                         class_details = pk,
                         is_present = True,
                     )
+                    return redirect(attendence.class_details.class_link)
 
             else:
                 context = {
@@ -158,6 +159,7 @@ def attendence_class(request, pk):
         print('no........')
         print('no........')
         print('no........')
+
         return render(request, 'attendence_class.html')
 
 

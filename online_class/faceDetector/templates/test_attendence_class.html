@@ -1,0 +1,140 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+Attendence | class
+{% endblock title %}
+
+{% block body %}
+
+     {% comment %} <form method='POST' action="{% url 'attendence_class' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="image" />
+        <button type='submit' class="btn btn-success">Take Attendence</button>
+     </form> {% endcomment %}
+
+
+    {% comment %} <div class="container py-4">
+        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+        <canvas id="canvas" class="d-none"></canvas>
+    </div> {% endcomment %}
+
+    {% comment %} <video id="player" controls autoplay></video> {% endcomment %}
+    {% comment %} <form id='form' method="POST" action="{% url 'attendence_class' %}" enctype="multipart/form-data"> {% endcomment %}
+        {% comment %} {% csrf_token %} {% endcomment %}
+
+    <form id='form' method="POST" action="{% url 'attendence_class' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input id="image" type="file" name="image" />
+        <button type='submit' class="btn btn-success">Take Attendence</button>
+    </form>
+    
+    <div id="camera" style="height:auto;width:auto; text-align:left;"></div>
+    <input type="button" value="Take a Snap" id="btPic" onclick="takeSnapShot()" /> 
+    <p id="snapShot"></p>
+    <canvas id="canvas" width=320 height=240></canvas>
+    
+    
+    <script>
+        Webcam.set({
+            width: 220,
+            height: 190,
+            image_format: 'jpeg',
+            jpeg_quality: 100
+        });
+        Webcam.attach('#camera');
+
+        // SHOW THE SNAPSHOT.
+        takeSnapShot = function () {
+            Webcam.snap(function (data_uri) {
+                document.getElementById('snapShot').innerHTML = 
+                    '<img src="' + data_uri + '" width="70px" height="50px" />';
+                
+                $("#image").val(data_uri)
+
+            });
+        }
+        </script>
+
+
+
+{% endblock body %}
+
+{% block script %}
+    <script>
+    
+        
+
+        
+
+    </script>
+{% endblock script %}
+
+
+{% comment %} 
+
+    <form id="userinfoform" action="{% url 'attendence_class' %}">
+        {% csrf_token %}
+        First name: <input type="text" id="firstname">
+        Last name: <input type="text" id="lastname">
+        <input type="submit">
+    </form>
+
+
+    <script>
+        $(document).ready(function(){
+        $('#userinfoform').on('submit', function(e){
+
+            $.ajax({
+                method:'POST',
+                url:'face-recognition/attendece/class/',
+                data:{
+                firstnamevalue:$('#firstname').val(),
+                lastnamevalue:$('#lastname').val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            }, 
+                success: function() {
+
+                alert('Data Successfully Posted');
+                    
+                },
+            });
+
+        });
+    });
+    </script>
+{% endcomment %}
+
+
+{% comment %} 
+function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+            const request = new Request(
+                /* URL */,
+                {headers: {'X-CSRFToken': csrftoken}}
+            );
+            fetch(request, {
+                method: 'POST',
+                mode: 'same-origin'  // Do not send CSRF token to another domain.
+            }).then(function(response) {
+                // ...
+            });
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+            var url = "{% url 'attendence_class' %}"
+            var data = {'count': '5', 'X-csrfmiddlewaretoken': csrfmiddlewaretoken};
+            $.post(url, data);
+{% endcomment %}
