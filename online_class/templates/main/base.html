@@ -78,14 +78,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    {% comment %} <a class="nav-link" href="{% url 'teachers:assignment_page' %}">
+                    <a class="nav-link" href="{% url 'teachers:assignment_page' %}">
                         <span class="material-icons" style="position: absolute;">
                             assignment
                         </span>
                         <span class="ml-4">
                             Assignments
                         </span>
-                    </a> {% endcomment %}
+                    </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
@@ -106,7 +106,7 @@
                         </span>
                       </a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">
+                      <a class="dropdown-item" href="{% url 'logout' %}">
                         <span class="material-icons" style="position: absolute;">
                             close
                         </span>
@@ -134,7 +134,7 @@
                     <a class="small text-warning" href="{% url 'main_page' %}">Home</a><br>
                     <a class="small text-warning" href="{% url 'class_page' %}">Classes</a><br>
                     <a class="small text-warning" href="{% url 'exam_page' %}">Exams</a><br>
-                    {% comment %} <a class="small text-warning" href="{% url 'teachers:assignment_page' %}">Assignment</a> {% endcomment %}
+                    <a class="small text-warning" href="{% url 'teachers:assignment_page' %}">Assignment</a>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <div>
