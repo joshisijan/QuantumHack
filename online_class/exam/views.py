@@ -27,11 +27,9 @@ Teachers Views
 def exam_home(request):
     if request.user.is_authenticated:
         if request.user.is_teacher:
-            exams = ExamQuestions.objects.all()
-            num = int(0)
+            exams = ExamQuestions.objects.filter(owner_id = request.user.id)
             context = {
                 'exams': exams,
-                'num': num
             }
 
             return render(request, 'teachers/exam_home.html', context)
@@ -92,6 +90,17 @@ def exam_delete(request,pk):
     return redirect('login')
 
 
+def exam_answer_list(request, pk):
+    answers = ExamAnswers.objects.filter(examQuestions_id = pk)
+    for answer in answers:
+        print(answer.student.user.username)
+    context= {
+        'answers':answers,
+    }
+
+    return render(request, 'teachers/answer_list.html', context)
+
+
 def exam_answer_check(request, pk):
     if request.user.is_authenticated:
         if request.user.is_teacher:
@@ -99,10 +108,6 @@ def exam_answer_check(request, pk):
             if request.method == 'POST':
                 form = ExamAnswerCheckForm(request.POST)
                 if form.is_valid():
-                    print("form is valid")
-                    print("form is valid")
-                    print("form is valid")
-                    print("form is valid")
                     exam = form.save(commit=False)
                     exam.student = Student.objects.get(pk=answer.student.id)
                     exam.examQuestions = ExamQuestions(pk=answer.examQuestions.id)
@@ -137,8 +142,9 @@ Student Views
 def student_exam_home(request):
     if request.user.is_authenticated:
         if request.user.is_student:
+            exams = ExamQuestions.objects.filter(subject__sem = request.user.student.sem)
             context = {
-                
+                'exams':exams,
             }
             return render(request, 'students/exam.html', context)
         else:
@@ -153,12 +159,12 @@ def exam_submit(request, pk):
                 form = ExamAnswerAddForm(request.POST, request.FILES)
                 if form.is_valid():
                     exam = form.save(commit=False)
-                    exam.student = Student.objects.get(pk=request.user.id)
+                    exam.student = request.user.student
                     exam.examQuestions = ExamQuestions.objects.get(pk=pk)
                     exam.save()
                     return redirect('exam_page_details_student')
             else:
-                student = Student.objects.get(pk=request.user.id)
+                student = Student.objects.get(pk=request.user.student.id)
                 if  Attendence_exam.objects.filter(student=student):
                     check_attendence = True
                 else:

@@ -15,14 +15,13 @@ def class_view(request):
     else:
         day = day - 6
 
-    print(day)
-    routine = Routine.objects.all()
+    routines = Routine.objects.filter(class_name__sem = request.user.student.sem)
     context = {
-        'routine': routine,
+        'routines': routines,
         'todaysDay': day
     }
 
-    return render(request, 'class_home.html', context)
+    return render(request, 'students/class_home.html', context)
 
 
 # def  add_resources(request):
