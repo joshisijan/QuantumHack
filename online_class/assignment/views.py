@@ -62,7 +62,6 @@ def assignment_delete(request,pk):
 
 def submitted_assignment(request,pk):
     answers = StudentAnswer.objects.filter(assignment__id = pk)
-    print(pk)
     context ={
         'answers': answers,
     }
@@ -86,12 +85,14 @@ def student_assignment_home(request):
     return render(request, 'students/assignment_home.html', context)
 
 
-def student_assignment_upload(request):
+def student_assignment_upload(request, pk):
+    assignment = Assignment.objects.get(pk = pk)
     if request.method == 'POST':
         form = AssignmentSubmitForm(request.POST, request.FILES)
         if form.is_valid():
             studentanswer = form.save(commit=False)
             studentanswer.student = request.user
+            studentanswer.assignment = assignment
             studentanswer.save()
             return redirect('students:assignment_page')
     else:

@@ -22,6 +22,7 @@ urlpatterns = [
 
     path('students/', include(([
         path('', student_assignment_home, name='assignment_page'),
+        path('<int:pk>/submit', student_assignment_upload, name='assignment_upload'),
     ],'assignment'), namespace='students'))
 
 ]

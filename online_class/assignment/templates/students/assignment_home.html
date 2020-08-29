@@ -55,7 +55,7 @@ Assignments
                                     Download
                                 </span>
                             </a>
-                            <a href="{{ assignment.question.url }}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
+                            <a href="{% url 'students:assignment_upload' assignment.pk %}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
                                 <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
                                     publish
                                 </span> 
