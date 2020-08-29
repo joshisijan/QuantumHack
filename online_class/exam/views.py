@@ -137,7 +137,10 @@ Student Views
 def student_exam_home(request):
     if request.user.is_authenticated:
         if request.user.is_student:
-            return HttpResponse("submitted")
+            context = {
+                
+            }
+            return render(request, 'students/exam.html', context)
         else:
             return redirect('exam_page_details_student')
     return redirect('login')
