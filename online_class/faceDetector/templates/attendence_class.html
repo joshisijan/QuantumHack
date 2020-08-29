@@ -6,90 +6,11 @@ Attendence | class
 
 {% block body %}
 
-     {% comment %} <form method='POST' action="{% url 'attendence_class' %}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="image" />
-        <button type='submit' class="btn btn-success">Take Attendence</button>
-     </form> {% endcomment %}
-
-
-    {% comment %} <div class="container py-4">
-        <video id="webcam" autoplay playsinline width="640" height="480"></video>
-        <canvas id="canvas" class="d-none"></canvas>
-    </div> {% endcomment %}
-
-    <video id="player" controls autoplay></video>
     <form id='form' method="POST" action="{% url 'attendence_class' %}" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="image" id="capt"/>
-        <button id="capture">Capture</button>
+        <input name='image' type="file" accept="image/*" capture="user">
+        <input type="submit" value="Take attendence">
     </form>
-    <canvas id="canvas" width=320 height=240></canvas>
-    
-    
-    <script>
-        const player = document.getElementById('player');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        const captureButton = document.getElementById('capture');
-
-        const constraints = {
-            video: true,
-        };
-
-        function clearphoto() {
-            var context = canvas.getContext('2d');
-            context.fillStyle = "#AAA";
-            context.fillRect(0, 0, canvas.width, canvas.height);
-
-            var data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
-
-            {% comment %} document.getElementById('capt').innerhtml(data); {% endcomment %}
-            {% comment %} g = document.createElement('input');
-            g.setAttribute("name", "image")
-            g.setAttribute("type", "file") {% endcomment %}
-
-            {% comment %} iconSelect = new IconSelect("image");
-            var icons = [];
-            icons.push({'iconFilePath':'data', 'iconValue':'1'});
-
-            iconSelect.refresh(icons); {% endcomment %}
-
-            {% comment %} var form = document.getElementById("form");
-            var formDataToUpload = new FormData(form);
-            formDataToUpload.append("image", data); {% endcomment %}
-
-            document.getElementById("form").submit();
-        }
-
-        function takepicture() {
-            var context = canvas.getContext('2d');
-            if (width && height) {
-                canvas.width = width;
-                canvas.height = height;
-                context.drawImage(video, 0, 0, width, height);
-
-                var data = canvas.toDataURL('image/png');
-                photo.setAttribute('src', data);
-            } else {
-                clearphoto();
-            }
-        }
-
-        captureButton.addEventListener('click', () => {
-            // Draw the video frame to the canvas.
-            context.drawImage(player, 0, 0, canvas.width, canvas.height);
-            takepicture();
-            clearphoto();
-        });
-
-        // Attach the video stream to the video element and autoplay.
-        navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-            player.srcObject = stream;
-            });
-        </script>
 
 
 
@@ -99,78 +20,8 @@ Attendence | class
     <script>
     
         
-
+    
         
 
     </script>
 {% endblock script %}
-
-
-{% comment %} 
-
-    <form id="userinfoform" action="{% url 'attendence_class' %}">
-        {% csrf_token %}
-        First name: <input type="text" id="firstname">
-        Last name: <input type="text" id="lastname">
-        <input type="submit">
-    </form>
-
-
-    <script>
-        $(document).ready(function(){
-        $('#userinfoform').on('submit', function(e){
-
-            $.ajax({
-                method:'POST',
-                url:'face-recognition/attendece/class/',
-                data:{
-                firstnamevalue:$('#firstname').val(),
-                lastnamevalue:$('#lastname').val(),
-                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
-            }, 
-                success: function() {
-
-                alert('Data Successfully Posted');
-                    
-                },
-            });
-
-        });
-    });
-    </script>
-{% endcomment %}
-
-
-{% comment %} 
-function getCookie(name) {
-                let cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    const cookies = document.cookie.split(';');
-                    for (let i = 0; i < cookies.length; i++) {
-                        const cookie = cookies[i].trim();
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-            const csrftoken = getCookie('csrftoken');
-            const request = new Request(
-                /* URL */,
-                {headers: {'X-CSRFToken': csrftoken}}
-            );
-            fetch(request, {
-                method: 'POST',
-                mode: 'same-origin'  // Do not send CSRF token to another domain.
-            }).then(function(response) {
-                // ...
-            });
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-
-            var url = "{% url 'attendence_class' %}"
-            var data = {'count': '5', 'X-csrfmiddlewaretoken': csrfmiddlewaretoken};
-            $.post(url, data);
-{% endcomment %}
