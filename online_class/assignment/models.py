@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from datetime import date
 
 
 class User(AbstractUser):
@@ -50,6 +51,7 @@ class StudentAnswer(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='assignment_answers')
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     question = models.FileField(upload_to=user_directory_path)
+    submitted_date = models.DateField(auto_now_add=True, null= True)
 
 
 class AnswerRemark(models.Model):

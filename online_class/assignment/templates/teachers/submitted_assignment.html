@@ -1,7 +1,8 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}
-Assignments
+Assignments - Submitted
 {% endblock title %}
 
 {% block body %}
@@ -33,34 +34,24 @@ Assignments
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Subject</th>
-                    <th>Due Date</th>
-                    <th>Time Remaining</th>
+                    <th>Student</th>
+                    <th>Submitted Date</th>
                     <th>Assignment</th>
                 </tr>
             </thead>
             <tbody>
-                {% for assignment in assignments %}
+                {% for answer in answers %}
                     <tr>
                         <th>{{ forloop.counter }}</th>
-                        <td>{{ assignment.subject }}</td>
-                        <td>{{ assignment.submission_date }}</td>
-                        <td>Today</td>
+                        <td>{{ answer.student.user.username }}</td>
+                        <td>{{ answer.submitted_date }}</td>
                         <td>
-                            <a href="{{ assignment.question.url }}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
+                            <a href="{{ answer.question.url }}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
                                 <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
                                     get_app
                                 </span> 
                                 <span class="pl-4">
                                     Download
-                                </span>
-                            </a>
-                            <a href="{% url 'students:assignment_upload' assignment.pk %}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
-                                <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">
-                                    publish
-                                </span> 
-                                <span class="pl-4">
-                                    Upload
                                 </span>
                             </a>
                         </td>
