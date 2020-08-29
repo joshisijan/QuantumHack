@@ -31,8 +31,13 @@
             {{ form.password|as_crispy_field }}
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-sm btn-primary form-control w-50">
-              login
+            <button type="submit" class="form-control form-control-sm btn btn-sm btn-primary form-control w-50" style="position: relative;">
+              <span class="material-icons md-18" style="position: absolute; top: 50%; transform: translate(0, -50%);">
+                login
+              </span>
+              <span class="pl-4">
+                login
+              </span>
             </button>
           </div>
         </form>
