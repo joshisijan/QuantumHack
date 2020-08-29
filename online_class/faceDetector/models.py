@@ -37,7 +37,7 @@ class UserFaceRecognize(models.Model):
 class Attendence_class(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class_details = models.ForeignKey('class.Routine', on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now=True)
+    # date = models.DateTimeField(auto_now=True)
     is_present = models.BooleanField(default=False)
 
     def __str__(self):

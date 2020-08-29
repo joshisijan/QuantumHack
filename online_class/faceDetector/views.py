@@ -132,11 +132,16 @@ def attendence_class(request, pk):
             print(name)
 
             if(request.user.id == name):
-                student = Student.objects.get(pk=request.user.id)
-                attendence = Attendence_class.objects.filter(student=student)
+                attendence = Attendence_exam.objects.filter(user=request.user, class_details=pk)
                 if attendence:
+                    return redirect(attendence.class_details.class_link)
+                else:
+                    Attendence_exam.objects.create(
+                        user = request.user,
+                        class_details = pk,
+                        is_present = True,
+                    )
 
-                return redirect('redirection')
             else:
                 context = {
                     'message': "Face does't match"
