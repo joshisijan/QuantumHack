@@ -44,7 +44,7 @@ Assignments - Submitted
                     <tr>
                         <th>{{ forloop.counter }}</th>
                         <td>{{ answer.student.user.username }}</td>
-                        <td>Submitted Date</td>
+                        <td>{{ answer.submitted_date }}</td>
                         <td>
                             <a href="{{ answer.question.url }}" class="btn btn-sm btn-secondary" style="position: relative; width: 100px;"> 
                                 <span class="material-icons md-18" style="position: absolute;top: 50%;transform: translate(0, -50%);">

@@ -86,3 +86,19 @@ def student_assignment_home(request):
     return render(request, 'students/assignment_home.html', context)
 
 
+def student_assignment_upload(request):
+    if request.method == 'POST':
+        form = AssignmentSubmitForm(request.POST, request.FILES)
+        if form.is_valid():
+            studentanswer = form.save(commit=False)
+            studentanswer.student = request.user
+            studentanswer.save()
+            return redirect('students:assignment_page')
+    else:
+        form = AssignmentSubmitForm()
+    
+    return render(request, 'students/assignment_upload.html', {'form':form})
+        
+
+
+
