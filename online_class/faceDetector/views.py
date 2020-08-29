@@ -133,14 +133,13 @@ def attendence_class(request, pk):
 
             if(request.user.id == name):
                 attendence = Attendence_exam.objects.filter(user=request.user, class_details=pk)
-                if attendence:
-                    return redirect(attendence.class_details.class_link)
-                else:
+                if not attendence:
                     Attendence_exam.objects.create(
                         user = request.user,
                         class_details = pk,
                         is_present = True,
                     )
+                    return redirect(attendence.class_details.class_link)
 
             else:
                 context = {
