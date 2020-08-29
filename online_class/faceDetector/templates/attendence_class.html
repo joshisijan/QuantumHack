@@ -6,13 +6,108 @@ Attendence | class
 
 {% block body %}
 
-     <form method='POST' action="{% url 'attendence_class' %}" enctype="multipart/form-data">
+     {% comment %} <form method='POST' action="{% url 'attendence_class' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="image" />
         <button type='submit' class="btn btn-success">Take Attendence</button>
-     </form>
+     </form> {% endcomment %}
+
+
+    {% comment %} <div class="container py-4">
+        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+        <canvas id="canvas" class="d-none"></canvas>
+    </div> {% endcomment %}
+
+    <div class="contentarea">
+        <h1>
+            Using Javascript to capture Photo
+        </h1>
+        <div class="camera">
+            <video id="video">Video stream not available.</video>
+        </div>
+        <div><button id="startbutton">Take photo</button></div>
+        
+        <canvas id="canvas"></canvas>
+        <div class="output">
+            <img id="photo" alt="The screen capture will appear in this box."> 
+        </div>
+    </div>
+
 
 {% endblock body %}
+
+{% block script %}
+    <script>
+    
+        function startup() {
+            video = document.getElementById('video');
+            canvas = document.getElementById('canvas');
+            photo = document.getElementById('photo');
+            startbutton = document.getElementById('startbutton');
+
+            // access video stream from webcam
+            navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: false
+                })
+                // on success, stream it in video tag
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(function(err) {
+                    console.log("An error occurred: " + err);
+                });
+
+            video.addEventListener('canplay', function(ev) {
+                if (!streaming) {
+                    height = video.videoHeight / (video.videoWidth / width);
+
+                    if (isNaN(height)) {
+                        height = width / (4 / 3);
+                    }
+
+                    video.setAttribute('width', width);
+                    video.setAttribute('height', height);
+                    canvas.setAttribute('width', width);
+                    canvas.setAttribute('height', height);
+                    streaming = true;
+                }
+            }, false);
+
+            startbutton.addEventListener('click', function(ev) {
+                takepicture();
+                ev.preventDefault();
+            }, false);
+
+            clearphoto();
+        }
+
+        function clearphoto() {
+            var context = canvas.getContext('2d');
+            context.fillStyle = "#AAA";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            var data = canvas.toDataURL('image/png');
+            photo.setAttribute('src', data);
+        }
+
+        function takepicture() {
+            var context = canvas.getContext('2d');
+            if (width && height) {
+                canvas.width = width;
+                canvas.height = height;
+                context.drawImage(video, 0, 0, width, height);
+
+                var data = canvas.toDataURL('image/png');
+                photo.setAttribute('src', data);
+            } else {
+                clearphoto();
+            }
+        }
+
+    </script>
+{% endblock script %}
 
 
 {% comment %} 
