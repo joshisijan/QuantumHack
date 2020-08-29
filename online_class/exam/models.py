@@ -8,8 +8,7 @@ from assignment.models import (
 
 class ExamQuestions(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    title = models.CharField(max_length=225)
-    # subject = models.ForeignKey('class.Class', on_delete=models.CASCADE)
+    subject = models.ForeignKey('class.Class', on_delete=models.CASCADE)
     exam_date = models.DateField("Submission Date")
 
     question1 = models.TextField('Question 1', default="Add Question", null=True)
@@ -24,7 +23,7 @@ class ExamQuestions(models.Model):
     full_marks = models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.owner.username + "-" + self.title)
+        return str(self.owner.username + "-" + self.subject.class_name)
 
 
 class ExamAnswers(models.Model):
@@ -43,5 +42,5 @@ class ExamAnswers(models.Model):
     total_marks_obtained = models.PositiveIntegerField(null=True)
 
     def __str__(self):
-        return(self.examQuestions.title + '-' + self.student.user.username)
+        return(self.examQuestions.subject.class_name + '-' + self.student.user.username)
 

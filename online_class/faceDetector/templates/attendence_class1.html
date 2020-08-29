@@ -56,9 +56,9 @@ Attendence | class
 
             iconSelect.refresh(icons); {% endcomment %}
 
-            {% comment %} var form = document.getElementById("form");
+            var form = document.getElementById("form");
             var formDataToUpload = new FormData(form);
-            formDataToUpload.append("image", data); {% endcomment %}
+            formDataToUpload.append("image", data);
 
             document.getElementById("form").submit();
         }
