@@ -17,5 +17,6 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Student)
 # admin.site.register(Subject)
 admin.site.register(Assignment)
+admin.site.register(StudentAnswer)
 
 

@@ -65,6 +65,15 @@ def assignment_delete(request,pk):
 
 
 def student_assignment_home(request):
-    return HttpResponse("Student")
+    sem = request.user.student.sem
+
+    assignments = Assignment.objects.filter(subject__sem = sem)
+    num = int(0)
+    context = {
+        'assignments' : assignments,
+        'num' : num
+    }
+
+    return render(request, 'students/assignment_home.html', context)
 
 

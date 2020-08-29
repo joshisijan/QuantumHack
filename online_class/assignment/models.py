@@ -36,7 +36,7 @@ class Assignment(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     roll_no = models.PositiveIntegerField(unique=True, null=False)
-    level = models.CharField(max_length=100, null=False)
+    sem = models.PositiveIntegerField(verbose_name="Semister", default=5)
 
     def __str__(self):
         return self.user.username
@@ -45,7 +45,7 @@ class Student(models.Model):
 class StudentAnswer(models.Model):
 
     def user_directory_path(instance, filename):
-        return 'user_{0}/{1}'.format(instance.user.id, filename)
+        return 'user_{0}/{1}'.format(instance.student.id, filename)
         
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='assignment_answers')
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)

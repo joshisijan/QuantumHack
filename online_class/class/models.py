@@ -6,11 +6,15 @@ from assignment.models import (
 
 
 class Teacher(models.Model):
-    teacher_name = models.CharField(verbose_name="Name of Teacher", max_length = 100)
+    teacher = models.OneToOneField(User, verbose_name= "Name of Teacher", on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.teacher.username
+    
 
 class Class(models.Model):
     class_name = models.CharField(verbose_name="Name of Subject", max_length = 100)
-    teacher_name = models.ForeignKey(User, verbose_name= "Name of Teacher", on_delete=models.CASCADE)
+    teacher_name = models.ForeignKey(Teacher, verbose_name= "Name of Teacher", on_delete=models.CASCADE)
     sem = models.PositiveIntegerField(verbose_name="Semister")
     course_time = models.PositiveIntegerField(verbose_name="Total study Hour")
 
